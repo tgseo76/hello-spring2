@@ -9,6 +9,11 @@ public class HospitalDao {
 
     private final JdbcTemplate jdbcTemplate;
 
+    public int getCount(){
+        String sql="select count (id) from hospital;";
+        return this.jdbcTemplate.queryForObject(sql,Integer.class);
+    }
+
     public HospitalDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
