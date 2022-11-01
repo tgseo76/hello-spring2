@@ -14,7 +14,8 @@ public class HospitalParser implements Parser<Hospital> {
         System.out.println(Arrays.toString(row));
 
         Hospital hospital = new Hospital();
-        hospital.setId(Integer.parseInt(row[0].replace("\n","")));
+        hospital.setId(Integer.parseInt(row[0].replace("\"","")));
+//        hospital.setId(Integer.parseInt(row[0].replace("\n","")));
         hospital.setOpenServiceName(row[1]);
         hospital.setOpenLocalGovernmentCode(Integer.parseInt(row[3]));
         hospital.setManagementNumber(row[4]);
@@ -34,7 +35,7 @@ public class HospitalParser implements Parser<Hospital> {
         hospital.setHealthcareProviderCount(Integer.parseInt(row[29]));
         hospital.setPatientRoomCount(Integer.parseInt(row[30]));
         hospital.setTotalNumberOfBeds(Integer.parseInt(row[31]));
-        hospital.setTotalAreaSize(Float.parseFloat(row[32]));
+        hospital.setTotalAreaSize(Float.parseFloat(row[32].replace("\"","")));
 
 
         return hospital;

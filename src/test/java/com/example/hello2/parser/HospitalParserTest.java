@@ -66,6 +66,7 @@ class HospitalParserTest {
         System.out.printf("파싱된 데이터 개수:%d", hospitalList.size());
     }
 
+
     @Test
     @DisplayName("csv 1줄을 hospital로 만드는지")
     void convertToHospital() {
@@ -91,5 +92,10 @@ class HospitalParserTest {
         assertEquals(52.29f, hospital.getTotalAreaSize());
 
     }
+
+
+
+
+
 
 }

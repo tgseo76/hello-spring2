@@ -3,9 +3,18 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
-  spring:
-    datasource:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/likelion-db
-      username: root
-      password: 12345678
+#  spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/likelion-db
+    username: root
+    password: 12345678
+
+
+# spring:
+#  datasource:
+#   url: ~~
+# 위 yml 설정은 properties에서 아래와 같다.
+#spring.datasource.url=~~
+# 탭과 콜론으로 구분되기때문에 주의할 것!!!
+
