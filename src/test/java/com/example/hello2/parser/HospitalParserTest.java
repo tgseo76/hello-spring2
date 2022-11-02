@@ -2,6 +2,7 @@ package com.example.hello2.parser;
 
 import com.example.hello2.dao.HospitalDao;
 import com.example.hello2.domain.Hospital;
+import com.example.hello2.service.HospitalService;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,46 +28,66 @@ class HospitalParserTest {
     @Autowired
     HospitalDao hospitalDao;
 
-    @Test
-    @DisplayName("hospital insert 확인")
-    void addAndGet() {
-
-        hospitalDao.deleteAll();
-        assertEquals(0, hospitalDao.getCount());
-        HospitalParser hp = new HospitalParser();
-        Hospital hospital = hp.parse(line1);
-        hospitalDao.add(hospital);
-        assertEquals(1, hospitalDao.getCount());
-
-        Hospital selectedHospital = hospitalDao.findById(hospital.getId());
-        assertEquals(selectedHospital.getId(), hospital.getId());
-        assertEquals(selectedHospital.getOpenServiceName(), hospital.getOpenServiceName());
-        assertEquals(selectedHospital.getHospitalName(), hospital.getHospitalName());
-        // 날짜, float
-
-        assertTrue(selectedHospital.getLicenseDate().isEqual(hospital.getLicenseDate()));
-        assertEquals(selectedHospital.getTotalAreaSize(), hospital.getTotalAreaSize());
-        // findById
-
-    }
+    @Autowired
+    HospitalService hospitalService;
 
 
-    @Test
+//환경변수에 SPRING_DATASOURCE_URL에 AWS 주소입력
+    // SPRING_DATASOURCE_PASSWORD = 비밀번호
+    @Test//db에 저장
     @DisplayName("10만건 이상 데이터가 파싱 되는지")
     void oneHundreadThousandRows() throws IOException {
         // 서버환경에서 build할 때 문제가 생길 수 있습니다.
         // 어디에서든지 실행할 수 있게 짜는 것이 목표.
-        String filename = "C:\\Users\\tjxor\\Desktop\\fulldata1.csv";
-        List<Hospital> hospitalList = hospitalReadLineContext.readByLine(filename);
-        assertTrue(hospitalList.size() > 1000);
-        assertTrue(hospitalList.size() > 10000);
-        for (int i = 0; i < 10; i++) {
-            System.out.println(hospitalList.get(i).getHospitalName());
-        }
-        System.out.printf("파싱된 데이터 개수:%d", hospitalList.size());
+
+        //테스트할때마다 실행되기때문에 주석처리
+//        hospitalDao.deleteAll(); //db 지우기
+//        String filename = "C:\\Users\\tjxor\\Desktop\\fulldata1.csv";
+//        int cnt = this.hospitalService.insertLargeVolumeHospitalData(filename);
+//        assertTrue(cnt > 1_000);
+//        assertTrue(cnt > 10_000);
+//        System.out.printf("파싱된 데이터 개수:%d", cnt);
     }
+    
+//    @Test
+//    @DisplayName("10만건 이상 데이터가 파싱 되는지")
+//    void oneHundreadThousandRows() throws IOException {
+//        // 서버환경에서 build할 때 문제가 생길 수 있습니다.
+//        // 어디에서든지 실행할 수 있게 짜는 것이 목표.
+//        String filename = "C:\\Users\\tjxor\\Desktop\\fulldata1.csv";
+//        List<Hospital> hospitalList = hospitalReadLineContext.readByLine(filename);
+//        assertTrue(hospitalList.size() > 1000);
+//        assertTrue(hospitalList.size() > 10000);
+//        for (int i = 0; i < 10; i++) {
+//            System.out.println(hospitalList.get(i).getHospitalName());
+//        }
+//        System.out.printf("파싱된 데이터 개수:%d", hospitalList.size());
+//    }
 
 
+
+//    @Test
+//    @DisplayName("hospital insert 확인")
+//    void addAndGet() {
+//
+//        hospitalDao.deleteAll();
+//        assertEquals(0, hospitalDao.getCount());
+//        HospitalParser hp = new HospitalParser();
+//        Hospital hospital = hp.parse(line1);
+//        hospitalDao.add(hospital);
+//        assertEquals(1, hospitalDao.getCount());
+//
+//        Hospital selectedHospital = hospitalDao.findById(hospital.getId());
+//        assertEquals(selectedHospital.getId(), hospital.getId());
+//        assertEquals(selectedHospital.getOpenServiceName(), hospital.getOpenServiceName());
+//        assertEquals(selectedHospital.getHospitalName(), hospital.getHospitalName());
+//        // 날짜, float
+//
+//        assertTrue(selectedHospital.getLicenseDate().isEqual(hospital.getLicenseDate()));
+//        assertEquals(selectedHospital.getTotalAreaSize(), hospital.getTotalAreaSize());
+//        // findById
+//
+//    }
     @Test
     @DisplayName("csv 1줄을 hospital로 만드는지")
     void convertToHospital() {
